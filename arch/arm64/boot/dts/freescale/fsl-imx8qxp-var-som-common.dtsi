@@ -551,6 +551,7 @@
 			>;
 		};
 
+
 		pinctrl_restouch: restouchgrp {
 			fsl,pins = <
 				SC_P_USDHC1_RESET_B_LSIO_GPIO4_IO19  		0xC0000041
@@ -813,19 +814,19 @@
 		reg = <0x68>;
 	};
 
-	/* Capacitive touch controller */
-	ft5x06_ts: ft5x06_ts@38 {
-		status = "okay";
-		compatible = "edt,edt-ft5x06";
-		reg = <0x38>;
+	/* Capacitive touch */
+	captouch: gt928@5d {
 		pinctrl-names = "default";
 		pinctrl-0 = <&pinctrl_captouch>;
+		compatible = "goodix,gt928";
+		reg = <0x5d>;
 		interrupt-parent = <&gpio0>;
-		interrupts = <24 0>;
-		touchscreen-size-x = <800>;
-		touchscreen-size-y = <480>;
-		touchscreen-inverted-x;
-		touchscreen-inverted-y;
+		interrupts = <19 IRQ_TYPE_LEVEL_HIGH>;
+                irq-gpios = <&gpio0 19 GPIO_ACTIVE_HIGH>;
+		reset-gpios = <&gpio0 16 GPIO_ACTIVE_LOW>;
+                touchscreen-size-x = <1280>;
+		touchscreen-size-y = <800>;
+		status = "okay";
 	};
 };
 
@@ -1103,14 +1104,14 @@
 
 		display-timings {
 			lvds {
-				clock-frequency = <29232000>;
-				hactive = <800>;
-				vactive = <480>;
+				clock-frequency = <71100000>;
+				hactive = <1280>;
+				vactive = <800>;
 				hback-porch = <40>;
-				hfront-porch = <40>;
-				vback-porch = <29>;
-				vfront-porch = <13>;
-				hsync-len = <48>;
+				hfront-porch = <80>;
+				vback-porch = <10>;
+				vfront-porch = <10>;
+				hsync-len = <40>;
 				vsync-len = <3>;
 				hsync-active = <0>;
 				vsync-active = <0>;
