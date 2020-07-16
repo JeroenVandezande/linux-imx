@@ -543,11 +543,11 @@
 			>;
 		};
 
+
 		pinctrl_captouch: captouchgrp {
 			fsl,pins = <
-				SC_P_UART1_CTS_B_LSIO_GPIO0_IO24		0xC0000041
-				/* Workaround for capacitive touch problem on Symphony board 1.1 */
-				SC_P_UART1_RTS_B_LSIO_GPT1_CAPTURE              0x06000020
+				SC_P_ESAI0_TX2_RX3_LSIO_GPIO0_IO06			0x00000021
+				SC_P_UART1_CTS_B_LSIO_GPIO0_IO24			0x06000021
 			>;
 		};
 
@@ -821,9 +821,9 @@
 		compatible = "goodix,gt928";
 		reg = <0x5d>;
 		interrupt-parent = <&gpio0>;
-		interrupts = <19 IRQ_TYPE_LEVEL_HIGH>;
-                irq-gpios = <&gpio0 19 GPIO_ACTIVE_HIGH>;
-		reset-gpios = <&gpio0 16 GPIO_ACTIVE_LOW>;
+		interrupts = <24 IRQ_TYPE_LEVEL_HIGH>;
+                irq-gpios = <&gpio0 24 GPIO_ACTIVE_HIGH>;
+		reset-gpios = <&gpio0 6 GPIO_ACTIVE_LOW>;
                 touchscreen-size-x = <1280>;
 		touchscreen-size-y = <800>;
 		status = "okay";
