@@ -84,21 +84,21 @@
 	panel {
 		compatible = "sgd,gktw70sdae4se", "panel-lvds";
 		backlight = <&backlight>;
-		width-mm = <153>;
-		height-mm = <87>;
+		width-mm = <217>;
+		height-mm = <136>;
 		label = "gktw70sdae4se";
-		data-mapping = "jeida-24";
+		data-mapping = "spwg-24";
 		status = "okay";
 
 		panel-timing {
-			clock-frequency = <33000000>;
-			hactive = <800>;
-			vactive = <480>;
+			clock-frequency = <71100000>;
+			hactive = <1280>;
+			vactive = <800>;
 			hback-porch = <40>;
-			hfront-porch = <40>;
-			vback-porch = <29>;
-			vfront-porch = <13>;
-			hsync-len = <48>;
+			hfront-porch = <80>;
+			vback-porch = <10>;
+			vfront-porch = <10>;
+			hsync-len = <40>;
 			vsync-len = <3>;
 			hsync-active = <0>;
 			vsync-active = <0>;
@@ -184,18 +184,18 @@
 	};
 
 	/* Capacitive touch controller */
-	ft5x06_ts: ft5x06_ts@38 {
+	captouch: gt928@5d {
 		status = "okay";
-		compatible = "edt,edt-ft5206";
-		reg = <0x38>;
+		compatible = "goodix,gt928";
+		reg = <0x5d>;
 		pinctrl-names = "default";
 		pinctrl-0 = <&pinctrl_captouch>;
-		interrupt-parent = <&gpio1>;
-		interrupts = <14 IRQ_TYPE_EDGE_FALLING>;
-		touchscreen-size-x = <800>;
-		touchscreen-size-y = <480>;
-		touchscreen-inverted-x;
-		touchscreen-inverted-y;
+		interrupt-parent = <&gpio5>;
+		interrupts = <03 IRQ_TYPE_LEVEL_HIGH>;
+		irq-gpios = <&gpio5 03 GPIO_ACTIVE_HIGH>;
+		reset-gpios = <&gpio4 08 GPIO_ACTIVE_LOW>;
+		touchscreen-size-x = <1280>;
+		touchscreen-size-y = <800>;
 		wakeup-source;
 	};
 };
@@ -514,6 +514,13 @@
 			MX8MP_IOMUXC_HDMI_CEC__HDMIMIX_HDMI_CEC				0x40000019
 		>;
 	};
+
+	pinctrl_captouch: captouchgrp {
+			fsl,pins = <
+				MX8MQ_IOMUXC_SAI1_RXD6_GPIO4_IO8		0x00000021
+				MX8MQ_IOMUXC_SPDIF_TX_GPIO5_IO3			0x06000021
+			>;
+		};
 
 	pinctrl_pwm1: pwm1grp {
 		fsl,pins = <
