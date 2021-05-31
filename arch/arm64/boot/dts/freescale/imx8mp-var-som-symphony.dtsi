@@ -280,9 +280,9 @@
 		pinctrl-names = "default";
 		pinctrl-0 = <&pinctrl_captouch>;
 		interrupt-parent = <&gpio5>;
-		interrupts = <03 IRQ_TYPE_LEVEL_HIGH>;
-		irq-gpios = <&gpio5 03 GPIO_ACTIVE_HIGH>;
-		reset-gpios = <&gpio4 08 GPIO_ACTIVE_LOW>;
+		interrupts = <3 IRQ_TYPE_LEVEL_HIGH>;
+		irq-gpios = <&gpio5 3 GPIO_ACTIVE_HIGH>;
+		reset-gpios = <&gpio4 8 GPIO_ACTIVE_LOW>;
 		touchscreen-size-x = <1280>;
 		touchscreen-size-y = <800>;
 		wakeup-source;
