@@ -117,7 +117,7 @@
 		width-mm = <217>;
 		height-mm = <136>;
 		label = "gktw70sdae4se";
-		data-mapping = "spwg-24";
+		data-mapping = "vesa-24";
 		status = "okay";
 
 		panel-timing {
