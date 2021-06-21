@@ -14,7 +14,7 @@
 
 	gpio-keys {
 		compatible = "gpio-keys";
-		status = "okay";
+		status = "disabled";
 
 		back {
 			label = "Back";
@@ -40,7 +40,7 @@
 
 	leds {
 		compatible = "gpio-leds";
-		status = "okay";
+		status = "disabled";
 
 		heartbeat {
 			label = "Heartbeat";
@@ -203,7 +203,7 @@
 
 	/* GPIO expander */
 	pca9534: gpio@20 {
-		status = "okay";
+		status = "disabled";
 		compatible = "nxp,pca9534";
 		reg = <0x20>;
 		gpio-controller;
@@ -243,7 +243,7 @@
 		mclk = <24000000>;
 		mclk_source = <0>;
 		mipi_csi;
-		status = "okay";
+		status = "disabled";
 
 		port {
 			ov5640_mipi_0_ep: endpoint {
@@ -266,7 +266,7 @@
 
 	/* DS1337 RTC module */
 	rtc@68 {
-		status = "okay";
+		status = "disabled";
 		compatible = "dallas,ds1337";
 		reg = <0x68>;
 	};
@@ -281,6 +281,8 @@
 		interrupt-parent = <&gpio5>;
 		interrupts = <3 IRQ_TYPE_EDGE_RISING>;
 		reset-gpios = <&gpio4 8 GPIO_ACTIVE_LOW>;
+		irq-gpios = <&gpio5 3 GPIO_ACTIVE_HIGH>;
+		irq-flags = <1>;
 		touchscreen-size-x = <1280>;
 		touchscreen-size-y = <800>;
 		wakeup-source;
@@ -290,7 +292,7 @@
 &flexcan2 {
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_flexcan2>;
-	status = "okay";
+	status = "disabled";
 };
 
 
@@ -436,7 +438,7 @@
 	vmmc-supply = <&reg_usdhc2_vmmc>;
 	vqmmc-supply = <&reg_usdhc2_vqmmc>;
 	bus-width = <4>;
-	status = "okay";
+	status = "disabled";
 };
 
 &iomuxc {
@@ -495,7 +497,7 @@
 	pinctrl_captouch: captouchgrp {
 			fsl,pins = <
 				MX8MP_IOMUXC_SAI1_RXD6__GPIO4_IO08			0x00000021
-				MX8MP_IOMUXC_SPDIF_TX__GPIO5_IO03 			0x06000021
+				MX8MP_IOMUXC_SPDIF_TX__GPIO5_IO03 			0x16
 			>;
 		};
 
@@ -652,7 +654,7 @@
 &mipi_csi_0 {
 	#address-cells = <1>;
 	#size-cells = <0>;
-	status = "okay";
+	status = "disabled";
 
 	port@0 {
 		reg = <0>;
@@ -710,7 +712,7 @@
 		ti,settle-delay-usec = /bits/ 16 <150>;
 		ti,keep-vref-on;
 		wakeup-source;
-		status = "okay";
+		status = "disabled";
 	};
 };
 
