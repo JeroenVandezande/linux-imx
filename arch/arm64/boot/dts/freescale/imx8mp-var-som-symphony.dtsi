@@ -274,16 +274,17 @@
 
 	/* Capacitive touch controller */
 	captouch: gt928@5d {
-		status = "okay";
+		
 		compatible = "goodix,gt928";
 		reg = <0x5d>;
 		pinctrl-names = "default";
 		pinctrl-0 = <&pinctrl_captouch>;
 		interrupt-parent = <&gpio5>;
-		interrupts = <3 0>;
+		interrupts = <3 IRQ_TYPE_LEVEL_HIGH>;
 		reset-gpios = <&gpio4 8 GPIO_ACTIVE_LOW>;
 		touchscreen-size-x = <1280>;
 		touchscreen-size-y = <800>;
+		status = "okay";
 	};
 };
 
