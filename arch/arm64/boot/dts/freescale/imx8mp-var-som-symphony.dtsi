@@ -494,7 +494,7 @@
 	pinctrl_captouch: captouchgrp {
 			fsl,pins = <
 				MX8MP_IOMUXC_SAI1_RXD6__GPIO4_IO08			0x00000021
-				MX8MP_IOMUXC_SPDIF_TX__GPIO5_IO03 			0x16
+				MX8MP_IOMUXC_SPDIF_TX__GPIO5_IO03 			0x06000021
 			>;
 		};
 
