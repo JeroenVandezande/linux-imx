@@ -244,7 +244,7 @@
 		mclk = <24000000>;
 		mclk_source = <0>;
 		mipi_csi;
-		status = "okay";
+		status = "disabled";
 
 		port {
 			ov5640_mipi_0_ep: endpoint {
@@ -267,20 +267,20 @@
 
 	/* DS1337 RTC module */
 	rtc@68 {
-		status = "okay";
+		status = "disabled";
 		compatible = "dallas,ds1337";
 		reg = <0x68>;
 	};
 
 	/* Capacitive touch controller */
-	captouch: gt928@5d {
-		
-		compatible = "goodix,gt928";
-		reg = <0x5d>;
+	captouch: gt928@5d {		
 		pinctrl-names = "default";
 		pinctrl-0 = <&pinctrl_captouch>;
+		compatible = "goodix,gt928";
+		reg = <0x5d>;
 		interrupt-parent = <&gpio5>;
 		interrupts = <3 IRQ_TYPE_LEVEL_HIGH>;
+		irq-gpios = <&gpio5 3 GPIO_ACTIVE_HIGH>;
 		reset-gpios = <&gpio4 8 GPIO_ACTIVE_LOW>;
 		touchscreen-size-x = <1280>;
 		touchscreen-size-y = <800>;
@@ -291,7 +291,7 @@
 &flexcan2 {
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_flexcan2>;
-	status = "okay";
+	status = "disabled";
 };
 
 
