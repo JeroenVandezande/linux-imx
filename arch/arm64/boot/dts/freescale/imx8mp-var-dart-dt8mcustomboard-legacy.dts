@@ -55,14 +55,7 @@
 	};
 
 	/* USB Type-C Controller */
-	extcon_ptn5150: typec@3d {
-		compatible = "nxp,ptn5150";
-		pinctrl-names = "default";
-		pinctrl-0 = <&pinctrl_extcon>;
-		reg = <0x3d>;
-		int-gpio = <&gpio1 10 GPIO_ACTIVE_HIGH>;
-		status ="okay";
-	};
+	/delete-node/ extcon_ptn5150;
 };
 
 &i2c4 {
@@ -84,7 +77,7 @@
 };
 
 &usb_dwc3_0 {
-	extcon = <&extcon_ptn5150>;
+	dr_mode = "host";
 };
 
 &can0 {
