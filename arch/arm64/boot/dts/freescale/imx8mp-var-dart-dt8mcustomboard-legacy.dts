@@ -51,7 +51,7 @@
 	};
 
     /*cap touch screen controller (removed) */
-	/delete-node/ft5x06_ts;
+	/delete-node/ ft5x06_ts;
 
 	/* USB Type-C Controller  (removed) */
 	/delete-node/ extcon_ptn5150;
