@@ -50,11 +50,10 @@
 		reset-gpios = <&gpio5 28 GPIO_ACTIVE_LOW>;
 	};
 
-	ft5x06_ts: ft5x06_ts@38 {
-		reset-gpios = <&gpio4 5 GPIO_ACTIVE_LOW>;
-	};
+    /*cap touch screen controller (removed) */
+	/delete-node/ft5x06_ts;
 
-	/* USB Type-C Controller */
+	/* USB Type-C Controller  (removed) */
 	/delete-node/ extcon_ptn5150;
 };
 
@@ -64,6 +63,7 @@
 		pinctrl-0 = <&pinctrl_csi1>;
 		powerdown-gpios = <&gpio4 9 GPIO_ACTIVE_HIGH>;
 		reset-gpios = <&gpio4 12 GPIO_ACTIVE_LOW>;
+		status = "okay";
 	};
 
 	/delete-node/ pca6408_1;
