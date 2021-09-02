@@ -563,6 +563,10 @@
 	cap_device {
 		status = "okay";
 	};
+
+	m2m_device {
+		status = "okay";
+	};
 };
 
 &ecspi1 {
@@ -571,7 +575,7 @@
 	cs-gpios = <&gpio5  9 GPIO_ACTIVE_LOW>,
 		   <&gpio1 12 GPIO_ACTIVE_LOW>,
 		   <&gpio2 10 GPIO_ACTIVE_LOW>;
-	status = "okay";
+	status = "disabled";
 
 	/* Resistive touch controller */
 	ads7846@0 {
@@ -595,7 +599,7 @@
 		ti,settle-delay-usec = /bits/ 16 <150>;
 		ti,keep-vref-on;
 		wakeup-source;
-		status = "okay";
+		status = "disabled";
 	};
 
 	can0: can@1 {
@@ -608,14 +612,14 @@
 		microchip,rx-int-gpios = <&gpio5 4 GPIO_ACTIVE_LOW>;
 		clocks = <&can0_osc>;
 		spi-max-frequency = <20000000>;
-		status = "okay";
+		status = "disabled";
 	};
 
 	spidev@2 {
 		compatible = "var,spidev";
 		reg = <2>;
 		spi-max-frequency = <12000000>;
-		status = "okay";
+		status = "disabled";
 	};
 };
 
