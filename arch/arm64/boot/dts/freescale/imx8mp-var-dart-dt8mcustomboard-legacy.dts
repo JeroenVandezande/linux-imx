@@ -50,11 +50,7 @@
 		reset-gpios = <&gpio5 28 GPIO_ACTIVE_LOW>;
 	};
 
-    /*cap touch screen controller (removed) */
-	/delete-node/ ft5x06_ts;
-
-	/* USB Type-C Controller  (removed) */
-	/delete-node/ extcon_ptn5150;
+	
 };
 
 &i2c4 {

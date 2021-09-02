@@ -96,7 +96,7 @@
 		height-mm = <87>;
 		label = "gktw70sdae4se";
 		data-mapping = "jeida-24";
-		status = "okay";
+		status = "disabled";
 
 		panel-timing {
 			clock-frequency = <33000000>;
@@ -180,7 +180,7 @@
 	phy-reset-gpios = <&pca6408_2 0 GPIO_ACTIVE_LOW>;
 	phy-reset-duration = <10>;
 	phy-reset-post-delay = <100>;
-	status = "okay";
+	status = "disabled";
 };
 
 &flexspi {
@@ -254,7 +254,7 @@
 		touchscreen-inverted-x;
 		touchscreen-inverted-y;
 		wakeup-source;
-		status = "okay";
+		status = "disabled";
 	};
 };
 
@@ -316,6 +316,7 @@
 		pinctrl-0 = <&pinctrl_pca6408>;
 		interrupt-parent = <&gpio1>;
 		interrupts = <5 IRQ_TYPE_EDGE_FALLING>;
+		status = "disabled";
 	};
 
 	pca6408_2: gpio@21 {
@@ -323,6 +324,7 @@
 		reg = <0x21>;
 		gpio-controller;
 		#gpio-cells = <2>;
+		status = "disabled";
 	};
 };
 
@@ -365,7 +367,7 @@
 
 /* LVDS */
 &lcdif2 {
-	status = "okay";
+	status = "disabled";
 };
 
 /* HDMI */
@@ -376,7 +378,7 @@
 };
 
 &ldb {
-	status = "okay";
+	status = "disabled";
 
 	lvds-channel@0 {
 		fsl,data-mapping = "jeida";
@@ -394,7 +396,7 @@
 };
 
 &ldb_phy {
-	status = "okay";
+	status = "disabled";
 };
 
 &mipi_dsi {
@@ -553,7 +555,7 @@
 	};
 
 	m2m_device {
-		status = "okay";
+		status = "disabled";
 	};
 };
 
@@ -565,7 +567,7 @@
 	};
 
 	m2m_device {
-		status = "okay";
+		status = "disabled";
 	};
 };
 
