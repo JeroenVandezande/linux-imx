@@ -4,10 +4,12 @@
  * Copyright 2020-2021 Variscite Ltd.
  */
 
+ //Modified for GSD Tempest Androidboard
+
 #include "imx8mp-var-dart.dtsi"
 
 / {
-	model = "Variscite DART-MX8M-PLUS on DT8MCustomBoard 2.x and above";
+	model = "Variscite DART-MX8M-PLUS on GSD Tempest AndroidBoard";
 
 	chosen {
 		stdout-path = &uart1;
@@ -16,7 +18,7 @@
 
 	gpio-keys {
 		compatible = "gpio-keys";
-		status = "okay";
+		status = "disabled";
 
 		back {
 			label = "Back";
@@ -51,7 +53,7 @@
 		compatible = "gpio-leds";
 		pinctrl-names = "default";
 		pinctrl-0 = <&pinctrl_gpio_leds>;
-		status = "okay";
+		status = "disabled";
 
 		emmc {
 			label = "eMMC";
@@ -100,15 +102,15 @@
 		status = "okay";
 
 		panel-timing {
-			clock-frequency = <76000000>;
+			clock-frequency = <71100000>;
 			hactive = <1366>;
 			vactive = <768>;
-			hback-porch = <97>;
-			hfront-porch = <97>;
-			vback-porch = <19>;
-			vfront-porch = <19>;
-			hsync-len = <0>;
-			vsync-len = <0>;
+			hback-porch = <40>;
+			hfront-porch = <80>;
+			vback-porch = <10>;
+			vfront-porch = <10>;
+			hsync-len = <40>;
+			vsync-len = <3>;
 			hsync-active = <0>;
 			vsync-active = <0>;
 			de-active = <1>;
@@ -224,7 +226,7 @@
 		interrupt-parent = <&gpio1>;
 		interrupts = <15 IRQ_TYPE_EDGE_FALLING>;
 		wakeup-source;
-		status = "okay";
+		status = "disabled";
 	};
 
 	/* Capacitive touch controller */
@@ -241,7 +243,7 @@
 		touchscreen-inverted-x;
 		touchscreen-inverted-y;
 		wakeup-source;
-		status = "okay";
+		status = "disabled";
 	};
 };
 
@@ -343,7 +345,7 @@
 	status = "okay";
 
 	lvds-channel@0 {
-		fsl,data-mapping = "jeida";
+		fsl,data-mapping = "spwg";
 		fsl,data-width = <24>;
 		status = "okay";
 
@@ -477,7 +479,7 @@
 &mipi_csi_0 {
 	#address-cells = <1>;
 	#size-cells = <0>;
-	status = "okay";
+	status = "disabled";
 
 	port@0 {
 		reg = <0>;
@@ -494,7 +496,7 @@
 &mipi_csi_1 {
 	#address-cells = <1>;
 	#size-cells = <0>;
-	status = "okay";
+	status = "disabled";
 
 	port@1 {
 		reg = <1>;
@@ -509,26 +511,26 @@
 };
 
 &cameradev {
-	status = "okay";
+	status = "disabled";
 };
 
 &isi_0 {
-	status = "okay";
+	status = "disabled";
 
 	cap_device {
-		status = "okay";
+		status = "disabled";
 	};
 
 	m2m_device {
-		status = "okay";
+		status = "disabled";
 	};
 };
 
 &isi_1 {
-	status = "okay";
+	status = "disabled";
 
 	cap_device {
-		status = "okay";
+		status = "disabled";
 	};
 };
 
@@ -562,7 +564,7 @@
 		ti,settle-delay-usec = /bits/ 16 <150>;
 		ti,keep-vref-on;
 		wakeup-source;
-		status = "okay";
+		status = "disabled";
 	};
 
 	can0: can@1 {
