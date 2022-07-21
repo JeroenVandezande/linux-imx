@@ -531,6 +531,7 @@ static struct vb2_ops mxc_cap_vb2_qops = {
 /*
  * V4L2 controls handling
  */
+
 static inline struct mxc_isi_cap_dev *ctrl_to_isi_cap(struct v4l2_ctrl *ctrl)
 {
 	return container_of(ctrl->handler, struct mxc_isi_cap_dev, ctrls.handler);

@@ -98,6 +98,7 @@ struct ov5640 {
 	const struct ov5640_datafmt	*fmt;
 	struct v4l2_captureparm streamcap;
 	bool on;
+	bool ready;
 
 	/* control settings */
 	int brightness;
@@ -107,6 +108,8 @@ struct ov5640 {
 	int red;
 	int green;
 	int blue;
+	int gain;
+	int exposure;
 	int ae_mode;
 
 	u32 mclk;
@@ -1694,7 +1697,6 @@ static int ov5640_set_clk_rate(void)
 	if (ret < 0)
 		pr_debug("set rate filed, rate=%d\n", ov5640_data.mclk);
 	return ret;
-}
 
 /*!
  * dev_init - V4L2 sensor init
@@ -1755,6 +1757,105 @@ static struct v4l2_subdev_ops ov5640_subdev_ops = {
 	.video	= &ov5640_subdev_video_ops,
 	.pad	= &ov5640_subdev_pad_ops,
 };
+
+static int ov5640_g_volatile_ctrl(struct v4l2_ctrl *ctrl)
+{
+	int val;
+
+	/* v4l2_ctrl_lock() locks our own mutex */
+
+	switch (ctrl->id) {
+	case V4L2_CID_AUTOGAIN:
+		val = ov5640_get_gain16();
+		break;
+	case V4L2_CID_EXPOSURE_AUTO:
+		val = ov5640_get_shutter();
+		break;
+	}
+
+	return 0;
+}
+
+static int ov5640_s_ctrl(struct v4l2_ctrl *ctrl)
+{
+	int ret;
+
+	/* v4l2_ctrl_lock() locks our own mutex */
+
+	/*
+	 * If the device is not powered up by the host driver do
+	 * not apply any controls to H/W at this time. Instead
+	 * the controls will be restored right after power-up.
+	 */
+	if (sensor->power_count == 0)
+		return 0;
+
+	switch (ctrl->id) {
+	case V4L2_CID_AUTOGAIN:
+		ret = ov5640_turn_on_AE_AG(ctrl->val);
+		ov5640_data.ae_mode = (ctrl->val > 0) ? 1 : 0;
+		break;
+	case V4L2_CID_EXPOSURE_AUTO:
+		ret = ov5640_turn_on_AE_AG(ctrl->val);
+		ov5640_data.ae_mode = (ctrl->val > 0) ? 1 : 0;
+		break;
+	case V4L2_CID_EXPOSURE:
+		ret = ov5640_set_gain16(ctrl->val);
+		ov5640_data.exposure = ctrl->val;
+		break;
+	case V4L2_CID_GAIN:
+		ret = ov5640_set_shutter(ctrl->val);
+		ov5640_data.gain = ctrl->val;
+		break;
+	default:
+		ret = -EINVAL;
+		break;
+	}
+
+	return ret;
+}
+
+static const struct v4l2_ctrl_ops ov5640_ctrl_ops = {
+	.s_ctrl = ov5640_s_ctrl,
+	.g_volatile_ctrl = ov5460_g_volatile_ctrl,
+};
+
+int ov5640_ctrls_create(struct ov5640 ov5640_data)
+{
+	struct v4l2_ctrl_handler *handler = ov5640_data->subdev.ctrl_handler;
+	
+	if (ov5640_data->ready)
+		return 0;
+
+	v4l2_ctrl_handler_init(handler, 16);
+
+	ov5640_data->exposure = v4l2_ctrl_new_std(handler, &ov5640_ctrl_ops,
+					 V4L2_CID_EXPOSURE, 0, 65535, 1, 0);
+	ov5640_data->gain = v4l2_ctrl_new_std(handler, &ov5640_ctrl_ops,
+					 V4L2_CID_GAIN, 0, 1023, 1, 0);
+	ov5640_data->ae_mode = v4l2_ctrl_new_std(handler, &ov5640_ctrl_ops,
+					 V4L2_CID_AUTOGAIN,
+					 0, 1, 1, 0);
+	ov5640_data->ae_mode = v4l2_ctrl_new_std(handler, &ov5640_ctrl_ops,
+					 V4L2_CID_EXPOSURE_AUTO,
+					 0, 1, 1, 0);
+
+	if (!handler->error)
+		ov5640_data->ready = true;
+
+	return handler->error;
+}
+
+void ov5640_ctrls_delete(struct ov5640 ov5640_data)
+{
+	struct v4l2_ctrl_handler *handler = ov5640_data->subdev.ctrl_handler;
+
+	if (ov5640_data->ready) {
+		v4l2_ctrl_handler_free(handler);
+		ov5640_data->ready = false;
+		ov5640_data->alpha = NULL;
+	}
+}
 
 /*!
  * ov5640 I2C probe function
@@ -1883,7 +1984,14 @@ static int ov5640_probe(struct i2c_client *client,
 		dev_err(&client->dev,
 					"%s--Async register failed, ret=%d\n", __func__, retval);
 
+	retval = ov5640_ctrls_create(ov5640_data);
+	if (retval)
+		goto err_ov5640_cleanup;
+
 	pr_info("camera ov5640, is found\n");
+	return retval;
+err_ov5640_cleanup:
+	ov5640_ctrls_delete(ov5640_data);
 	return retval;
 }
 
