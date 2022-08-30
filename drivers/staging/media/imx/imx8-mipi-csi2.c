@@ -924,7 +924,7 @@ static long mipi_csi2_ioctl(struct v4l2_subdev *sd,
 	if (!sen_sd)
 		return -EINVAL;
 
-	return v4l2_subdev_call(sen_sd, core, ioctl, cmd, enum_frame_interval, arg);
+	return v4l2_subdev_call(sen_sd, core, ioctl, cmd, arg);
 }
 
 static int mipi_csi2_get_fmt(struct v4l2_subdev *sd,
