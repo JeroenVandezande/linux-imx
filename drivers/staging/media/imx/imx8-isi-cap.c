@@ -541,7 +541,12 @@ static int mxc_isi_s_ctrl(struct v4l2_ctrl *ctrl)
 {
 	struct mxc_isi_cap_dev *isi_cap = ctrl_to_isi_cap(ctrl);
 	struct mxc_isi_dev *mxc_isi = mxc_isi_get_hostdata(isi_cap->pdev);
+	struct v4l2_subdev *sd;
+	struct v4l2_subdev *sen_sd;
 	unsigned long flags;
+	int ret;
+	sd = mxc_get_remote_subdev(&isi_cap->sd, __func__);
+	sen_sd = mxc_get_remote_subdev(sd, __func__);
 
 	dev_dbg(&isi_cap->pdev->dev, "%s\n", __func__);
 
@@ -570,6 +575,33 @@ static int mxc_isi_s_ctrl(struct v4l2_ctrl *ctrl)
 		mxc_isi->alphaen = 1;
 		break;
 
+	case V4L2_CID_GAIN:
+		if (ctrl->val < 0 || ctrl-val > 1023)
+			return -EINVAL;
+		ret = v4l2_subdev_call(sen_sd, pad, s_ctrl, ctrl->val);
+		if (ret)
+			return ret;
+		mxc_isi->gain = ctrl->val;
+		break;
+
+	case V4L2_CID_EXPOSURE:
+		if (ctrl->val < 0 || ctrl-val > 65535)
+			return -EINVAL;
+		ret = v4l2_subdev_call(sen_sd, pad, s_ctrl, ctrl->val);
+		if (ret)
+			return ret;
+		mxc_isi->exposure = ctrl->val;
+		break;
+
+	case V4L2_CID_EXPOSURE_AUTO:
+		if (ctrl->val < 0)
+			return -EINVAL;
+		ret = v4l2_subdev_call(sen_sd, pad, s_ctrl, ctrl->val);
+		if (ret)
+			return ret;
+		mxc_isi->auto_exposure = (ctrl->val > 0) ? 1 : 0;
+		break;
+
 	default:
 		dev_err(&isi_cap->pdev->dev,
 			"%s: Not support %d CID\n", __func__, ctrl->id);
@@ -592,7 +624,7 @@ int mxc_isi_ctrls_create(struct mxc_isi_cap_dev *isi_cap)
 	if (isi_cap->ctrls.ready)
 		return 0;
 
-	v4l2_ctrl_handler_init(handler, 4);
+	v4l2_ctrl_handler_init(handler, 8);
 
 	ctrls->hflip = v4l2_ctrl_new_std(handler, &mxc_isi_ctrl_ops,
 					 V4L2_CID_HFLIP, 0, 1, 1, 0);
@@ -601,6 +633,13 @@ int mxc_isi_ctrls_create(struct mxc_isi_cap_dev *isi_cap)
 	ctrls->alpha = v4l2_ctrl_new_std(handler, &mxc_isi_ctrl_ops,
 					 V4L2_CID_ALPHA_COMPONENT,
 					 0, 0xff, 1, 0);
+	ctrls->exposure = v4l2_ctrl_new_std(handler, &mxc_isi_ctrl_ops,
+					 V4L2_CID_EXPOSURE, 0, 65535, 1, 0);
+	ctrls->gain = v4l2_ctrl_new_std(handler, &mxc_isi_ctrl_ops,
+					 V4L2_CID_GAIN, 0, 1023, 1, 0);
+	ctrls->auto_exposure = v4l2_ctrl_new_std(handler, &mxc_isi_ctrl_ops,
+					 V4L2_CID_EXPOSURE_AUTO,
+					 0, 1, 1, 0);
 
 	if (!handler->error)
 		ctrls->ready = true;

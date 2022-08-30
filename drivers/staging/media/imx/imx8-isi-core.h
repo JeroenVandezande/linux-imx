@@ -139,6 +139,9 @@ struct mxc_isi_ctrls {
 	struct v4l2_ctrl *hflip;
 	struct v4l2_ctrl *vflip;
 	struct v4l2_ctrl *alpha;
+	struct v4l2_ctrl *auto_exposure;
+	struct v4l2_ctrl *exposure;
+	struct v4l2_ctrl *gain;
 	struct v4l2_ctrl *num_cap_buf;
 	struct v4l2_ctrl *num_out_buf;
 	bool ready;
@@ -397,6 +400,9 @@ struct mxc_isi_dev {
 	unsigned int cscen:1;
 	unsigned int scale:1;
 	unsigned int alphaen:1;
+	unsigned int exposure:1;
+	unsigned int gain:1;
+	unsigned int auto_exposure:1;
 	unsigned int crop:1;
 	unsigned int deinterlace:3;
 	unsigned int is_streaming:1;
