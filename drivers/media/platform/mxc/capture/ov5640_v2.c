@@ -1731,6 +1731,12 @@ static int init_device(void)
 	return ret;
 }
 
+static long ov5640_ioctl(struct v4l2_subdev *sd,
+		unsigned int cmd, void *arg)
+{
+	pr_info("ioctl succesfully called! \n");
+}
+
 static struct v4l2_subdev_video_ops ov5640_subdev_video_ops = {
 	.g_parm = ov5640_g_parm,
 	.s_parm = ov5640_s_parm,
@@ -1745,6 +1751,7 @@ static const struct v4l2_subdev_pad_ops ov5640_subdev_pad_ops = {
 };
 
 static struct v4l2_subdev_core_ops ov5640_subdev_core_ops = {
+	.ioctl 		= ov5640_ioctl,
 	.s_power	= ov5640_s_power,
 #ifdef CONFIG_VIDEO_ADV_DEBUG
 	.g_register	= ov5640_get_register,

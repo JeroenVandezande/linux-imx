@@ -546,7 +546,6 @@ static int mxc_isi_s_ctrl(struct v4l2_ctrl *ctrl)
 	unsigned long flags;
 	int ret;
 	sd = mxc_get_remote_subdev(&isi_cap->sd, __func__);
-	sen_sd = mxc_get_remote_subdev(sd, __func__);
 
 	dev_dbg(&isi_cap->pdev->dev, "%s\n", __func__);
 
@@ -578,7 +577,7 @@ static int mxc_isi_s_ctrl(struct v4l2_ctrl *ctrl)
 	case V4L2_CID_GAIN:
 		if (ctrl->val < 0 || ctrl->val > 1023)
 			return -EINVAL;
-		ret = v4l2_subdev_call(sen_sd, core, s_ctrl, ctrl->val);
+		ret = v4l2_subdev_call(sd, core, ioctl, VIDIOC_S_CTRL, ctrl->val);
 		if (ret)
 			return ret;
 		mxc_isi->gain = ctrl->val;
@@ -586,8 +585,8 @@ static int mxc_isi_s_ctrl(struct v4l2_ctrl *ctrl)
 
 	case V4L2_CID_EXPOSURE:
 		if (ctrl->val < 0 || ctrl->val > 65535)
-			return -EINVAL;	
-		ret = v4l2_subdev_call(sen_sd, core, s_ctrl, ctrl->val);
+			return -EINVAL;
+		ret = v4l2_subdev_call(sd, core, ioctl, VIDIOC_S_CTRL, ctrl->val);
 		if (ret)
 			return ret;
 		mxc_isi->exposure = ctrl->val;
@@ -596,7 +595,7 @@ static int mxc_isi_s_ctrl(struct v4l2_ctrl *ctrl)
 	case V4L2_CID_EXPOSURE_AUTO:
 		if (ctrl->val < 0)
 			return -EINVAL;
-		ret = v4l2_subdev_call(sen_sd, core, s_ctrl, ctrl->val);
+		ret = v4l2_subdev_call(sd, core, ioctl, VIDIOC_S_CTRL, ctrl->val);
 		if (ret)
 			return ret;
 		mxc_isi->auto_exposure = (ctrl->val > 0) ? 1 : 0;
