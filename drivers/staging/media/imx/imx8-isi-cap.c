@@ -576,18 +576,18 @@ static int mxc_isi_s_ctrl(struct v4l2_ctrl *ctrl)
 		break;
 
 	case V4L2_CID_GAIN:
-		if (ctrl->val < 0 || ctrl-val > 1023)
+		if (ctrl->val < 0 || ctrl->val > 1023)
 			return -EINVAL;
-		ret = v4l2_subdev_call(sen_sd, pad, s_ctrl, ctrl->val);
+		ret = v4l2_subdev_call(sen_sd, core, s_ctrl, ctrl->val);
 		if (ret)
 			return ret;
 		mxc_isi->gain = ctrl->val;
 		break;
 
 	case V4L2_CID_EXPOSURE:
-		if (ctrl->val < 0 || ctrl-val > 65535)
-			return -EINVAL;
-		ret = v4l2_subdev_call(sen_sd, pad, s_ctrl, ctrl->val);
+		if (ctrl->val < 0 || ctrl->val > 65535)
+			return -EINVAL;	
+		ret = v4l2_subdev_call(sen_sd, core, s_ctrl, ctrl->val);
 		if (ret)
 			return ret;
 		mxc_isi->exposure = ctrl->val;
@@ -596,7 +596,7 @@ static int mxc_isi_s_ctrl(struct v4l2_ctrl *ctrl)
 	case V4L2_CID_EXPOSURE_AUTO:
 		if (ctrl->val < 0)
 			return -EINVAL;
-		ret = v4l2_subdev_call(sen_sd, pad, s_ctrl, ctrl->val);
+		ret = v4l2_subdev_call(sen_sd, core, s_ctrl, ctrl->val);
 		if (ret)
 			return ret;
 		mxc_isi->auto_exposure = (ctrl->val > 0) ? 1 : 0;
