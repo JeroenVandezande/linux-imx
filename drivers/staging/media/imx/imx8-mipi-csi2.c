@@ -1014,6 +1014,8 @@ static int mipi_csi2_parse_dt(struct mxc_mipi_csi2_dev *csi2dev)
 
 static int mipi_csi2_probe(struct platform_device *pdev)
 {
+	pr_info("imx8-mipi-csi2.c probing\n");
+	
 	struct device *dev = &pdev->dev;
 	struct resource *mem_res;
 	struct mxc_mipi_csi2_dev *csi2dev;

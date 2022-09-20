@@ -1038,6 +1038,8 @@ static int register_sensor_entities(struct mxc_md *mxc_md)
 
 static int mxc_md_probe(struct platform_device *pdev)
 {
+	pr_info("mxc-media-dev.c probing\n");
+	
 	struct device *dev = &pdev->dev;
 	struct device_node *nd = dev->of_node;
 	struct v4l2_device *v4l2_dev;

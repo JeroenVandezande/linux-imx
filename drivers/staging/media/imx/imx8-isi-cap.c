@@ -544,6 +544,8 @@ static int mxc_isi_s_ctrl(struct v4l2_ctrl *ctrl)
 	unsigned long flags;
 
 	dev_dbg(&isi_cap->pdev->dev, "%s\n", __func__);
+	
+	pr_debug("ISI Set Ctrl: %s Cap subdev: %s", isi_cap->pdev->dev->name, ctrl->name);
 
 	if (ctrl->flags & V4L2_CTRL_FLAG_INACTIVE)
 		return 0;
@@ -1702,6 +1704,8 @@ static const struct v4l2_subdev_internal_ops mxc_isi_capture_sd_internal_ops = {
 
 static int isi_cap_probe(struct platform_device *pdev)
 {
+	pr_info("imx8-isi-cap.c probing\n");
+	
 	struct device *dev = &pdev->dev;
 	struct mxc_isi_dev *mxc_isi;
 	struct mxc_isi_cap_dev *isi_cap;

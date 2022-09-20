@@ -3129,6 +3129,7 @@ power_off:
 
 static int ov5640_probe(struct i2c_client *client)
 {
+	pr_info("I2C ov5640 probing\n");
 	struct device *dev = &client->dev;
 	struct fwnode_handle *endpoint;
 	struct ov5640_dev *sensor;

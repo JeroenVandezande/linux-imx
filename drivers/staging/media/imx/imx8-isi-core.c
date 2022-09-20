@@ -663,6 +663,8 @@ static int mxc_isi_soc_match(struct mxc_isi_dev *mxc_isi,
 
 static int mxc_isi_probe(struct platform_device *pdev)
 {
+	pr_info("imx8-isi-core.c probing\n");
+	
 	struct device *dev = &pdev->dev;
 	struct mxc_isi_dev *mxc_isi;
 	struct resource *res;

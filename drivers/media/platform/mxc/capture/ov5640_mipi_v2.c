@@ -1696,6 +1696,8 @@ static void ov5640_adjust_setting_20mhz(void)
 static int ov5640_probe(struct i2c_client *client,
 			const struct i2c_device_id *id)
 {
+	pr_info("ov5640_mipi_v2.c probing\n");
+	
 	struct pinctrl *pinctrl;
 	struct device *dev = &client->dev;
 	int retval;

@@ -1866,6 +1866,7 @@ void ov5640_ctrls_delete(struct ov5640 ov5640_data)
 static int ov5640_probe(struct i2c_client *client,
 			const struct i2c_device_id *id)
 {
+	pr_info("MXC ov5640_v2.c probing\n");
 	struct pinctrl *pinctrl;
 	struct device *dev = &client->dev;
 	int retval;
