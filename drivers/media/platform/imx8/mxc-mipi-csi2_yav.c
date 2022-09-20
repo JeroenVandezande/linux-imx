@@ -558,7 +558,7 @@ static int mipi_csis_subdev_host(struct mxc_mipi_csi2_dev *csi2dev)
 
 static int mipi_csi2_probe(struct platform_device *pdev)
 {
-	pr_into("mxc-mipi-csi2_yav.c Probing");
+	pr_info("mxc-mipi-csi2_yav.c Probing\n");
 	
 	struct device *dev = &pdev->dev;
 	struct resource *mem_res;
