@@ -545,7 +545,7 @@ static int mxc_isi_s_ctrl(struct v4l2_ctrl *ctrl)
 
 	dev_dbg(&isi_cap->pdev->dev, "%s\n", __func__);
 	
-	pr_debug("ISI Set Ctrl: %s Cap subdev: %s\n", isi_cap->pdev->dev->name, ctrl->name);
+	pr_debug("ISI Set Ctrl: %s Cap subdev: %s\n", ctrl->name, &isi_cap->pdev->dev);
 
 	if (ctrl->flags & V4L2_CTRL_FLAG_INACTIVE)
 		return 0;
