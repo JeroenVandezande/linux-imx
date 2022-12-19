@@ -89,7 +89,7 @@
 				     80 81 82 83 84 85 86 87 88 89
 				     90 91 92 93 94 95 96 97 98 99
 				    100>;
-		default-brightness-level = <80>;
+		default-brightness-level = <100>;
 	};
 
 	panel {
@@ -124,6 +124,7 @@
 	};
 
 	can0_osc: can0_osc {
+		status = "disabled";
 		compatible = "fixed-clock";
 		#clock-cells = <0>;
 		clock-frequency = <40000000>;
@@ -297,6 +298,7 @@
 	};
 
 	pca6408_1: gpio@20 {
+		status = "disabled";
 		compatible = "nxp,pcal6408";
 		standard-regs-fallback;
 		reg = <0x20>;
@@ -309,6 +311,7 @@
 	};
 
 	pca6408_2: gpio@21 {
+		status = "disabled";
 		compatible = "nxp,pcal6408";
 		standard-regs-fallback;
 		reg = <0x21>;
@@ -442,11 +445,7 @@
 };
 
 &usb_dwc3_0 {
-	dr_mode = "otg";
-	hnp-disable;
-	srp-disable;
-	adp-disable;
-	extcon = <&extcon_usb1>;
+	dr_mode = "host";
 	status = "okay";
 };
 
@@ -577,7 +576,7 @@
 		microchip,rx-int-gpios = <&gpio5 4 GPIO_ACTIVE_LOW>;
 		clocks = <&can0_osc>;
 		spi-max-frequency = <20000000>;
-		status = "okay";
+		status = "disabled";
 	};
 
 	spidev@2 {
