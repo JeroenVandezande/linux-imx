@@ -7,28 +7,7 @@
 #include "imx8mp-var-dart-dt8mcustomboard.dts"
 
 / {
-	model = "Variscite DART-MX8M-PLUS on DT8MCustomBoard 1.x";
-
-	gpio-keys {
-		pinctrl-names = "default";
-		pinctrl-0 = <&pinctrl_gpio_keys>;
-
-		up {
-			gpios = <&gpio4 18 GPIO_ACTIVE_LOW>;
-		};
-
-		down {
-			gpios = <&gpio4 15 GPIO_ACTIVE_LOW>;
-		};
-
-		home {
-			gpios = <&gpio4 13 GPIO_ACTIVE_LOW>;
-		};
-
-		back {
-			gpios = <&gpio4 6 GPIO_ACTIVE_LOW>;
-		};
-	};
+	model = "Variscite DART-MX8M-PLUS on Torrent XHead";
 
 	gpio-leds {
 		emmc {
@@ -156,20 +135,8 @@
 		>;
 	};
 
-	pinctrl_gpio_keys: keygrp {
-		fsl,pins = <
-			MX8MP_IOMUXC_SAI1_TXD3__GPIO4_IO15				0x142
-			MX8MP_IOMUXC_SAI1_TXD6__GPIO4_IO18				0x142
-			MX8MP_IOMUXC_SAI1_TXD1__GPIO4_IO13				0x142
-			MX8MP_IOMUXC_SAI1_RXD4__GPIO4_IO06				0x142
-		>;
-	};
-
 	pinctrl_gpio_leds: ledgrp {
 		fsl,pins = <
-			MX8MP_IOMUXC_SAI1_RXD1__GPIO4_IO03				0xc6
-			MX8MP_IOMUXC_SAI1_TXD2__GPIO4_IO14				0xc6
-			MX8MP_IOMUXC_SAI1_RXD2__GPIO4_IO04				0xc6
 			MX8MP_IOMUXC_SAI1_TXD5__GPIO4_IO17				0xc6
 		>;
 	};
