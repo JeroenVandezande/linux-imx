@@ -140,4 +140,13 @@
 			MX8MP_IOMUXC_SAI1_TXD5__GPIO4_IO17				0xc6
 		>;
 	};
+	
+	pinctrl_hog: hoggrp {
+		fsl,pins = <
+			MX8MP_IOMUXC_SAI1_TXD6__GPIO4_IO18				0xc6
+			MX8MP_IOMUXC_SAI1_MCLK__GPIO4_IO20				0xc6
+			MX8MP_IOMUXC_ECSPI1_MISO__GPIO5_IO08				0xc6
+			MX8MP_IOMUXC_ECSPI1_MOSI__GPIO5_IO07 				0xc6
+		>;
+	};
 };
