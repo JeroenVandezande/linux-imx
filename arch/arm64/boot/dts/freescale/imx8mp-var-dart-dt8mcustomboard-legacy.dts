@@ -70,11 +70,6 @@
 		line-name = "hdmi_on";
 	};
 
-&mcuctrl1 {
-	pinctrl-names = "default";
-	pinctrl-0 = <&pinctrl_mcu_ctrl>;
-	};
-
 };
 
 &fec {
@@ -82,6 +77,9 @@
 };
 
 &iomuxc {
+        pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_mcu_ctrl>;
+	
 	pinctrl_flexcan1: flexcan1grp {
 		fsl,pins = <
 			MX8MP_IOMUXC_SAI5_RXD2__CAN1_RX					0x154
