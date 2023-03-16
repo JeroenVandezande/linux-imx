@@ -69,6 +69,12 @@
 		output-low;
 		line-name = "hdmi_on";
 	};
+
+&mcuctrl1 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_mcu_ctrl>;
+	};
+
 };
 
 &fec {
@@ -141,7 +147,7 @@
 		>;
 	};
 	
-	pinctrl_hog: hoggrp {
+	pinctrl_mcu_ctrl: mcuctrlgrp {
 		fsl,pins = <
 			MX8MP_IOMUXC_SAI1_TXD6__GPIO4_IO18				0x00000036
 			MX8MP_IOMUXC_SAI1_MCLK__GPIO4_IO20				0x00000036
